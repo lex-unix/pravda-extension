@@ -13,7 +13,7 @@ enum Topic {
 interface State {
   isLoading: boolean
   items: Parser.Item[]
-  topic: Topic
+  topic: Topic | null
   error?: Error
 }
 
@@ -23,10 +23,13 @@ export default function Command() {
   const [state, setState] = useState<State>({
     items: [],
     isLoading: true,
-    topic: Topic.MainViews
+    topic: null
   })
 
   useEffect(() => {
+    if (!state.topic) {
+      return
+    }
     async function fetchArticles() {
       setState(previous => ({ ...previous, isLoading: true }))
       try {
