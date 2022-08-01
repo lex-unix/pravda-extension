@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Action, ActionPanel, Detail } from '@raycast/api'
+import { Action, ActionPanel, Detail, Color } from '@raycast/api'
 import Parser from 'rss-parser'
 
 type State = {
@@ -49,7 +49,7 @@ export const ArticleItem: React.FC<{ item: Parser.Item }> = ({ item }) => {
           <Detail.Metadata.TagList title="Category">
             <Detail.Metadata.TagList.Item
               text={state.categories}
-              color={'#eed535'}
+              color={Color.Blue}
             />
           </Detail.Metadata.TagList>
           <Detail.Metadata.Separator />
