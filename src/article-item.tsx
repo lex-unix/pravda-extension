@@ -21,6 +21,8 @@ export const ArticleItem: React.FC<{ item: Parser.Item }> = ({ item }) => {
     imageUrl: ''
   })
 
+  const [markdown, setMarkdown] = useState('')
+
   useEffect(() => {
     setState({
       title: item.title ?? 'No title available',
@@ -32,18 +34,18 @@ export const ArticleItem: React.FC<{ item: Parser.Item }> = ({ item }) => {
     })
   }, [])
 
+  useEffect(() => {
+    setMarkdown(
+      getMarkdown(state.title, state.content, state.link, state.imageUrl)
+    )
+  }, [state.title, state.content, state.link, state.imageUrl])
+
   return (
     <Detail
-      markdown={`${getMarkdown(
-        state.title,
-        state.content,
-        state.link,
-        state.imageUrl
-      )}`}
+      markdown={markdown}
       actions={<Actions link={state.link} />}
       metadata={
         <Detail.Metadata>
-          <Detail.Metadata.Label title="Authour" text={`${item.creator}`} />
           <Detail.Metadata.TagList title="Category">
             <Detail.Metadata.TagList.Item
               text={state.categories}
