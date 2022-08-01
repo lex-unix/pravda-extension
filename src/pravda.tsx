@@ -5,7 +5,7 @@ import { startCase } from 'lodash'
 import { ArticleListItem } from './article-list-item'
 
 enum Topic {
-  News = 'view_news',
+  AllNews = 'view_news',
   MainViews = 'view_mainnews',
   Publications = 'view_pubs'
 }
@@ -23,7 +23,7 @@ export default function Command() {
   const [state, setState] = useState<State>({
     items: [],
     isLoading: true,
-    topic: Topic.Publications
+    topic: Topic.MainViews
   })
 
   useEffect(() => {
