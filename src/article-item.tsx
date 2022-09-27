@@ -12,49 +12,43 @@ type State = {
 }
 
 export const ArticleItem: React.FC<{ item: Parser.Item }> = ({ item }) => {
-  const [state, setState] = useState<State>({
-    title: '',
-    content: '',
-    authour: '',
-    categories: '',
-    link: '',
-    imageUrl: ''
+  const [publication] = useState<State>({
+    title: item.title ?? 'No title available',
+    content: item.content ?? '',
+    authour: item.creator ?? 'Unknown',
+    categories: item.categories?.join(' ') ?? 'No category',
+    link: item.link ?? '',
+    imageUrl: item.enclosure?.url ?? ''
   })
 
   const [markdown, setMarkdown] = useState('')
 
   useEffect(() => {
-    setState({
-      title: item.title ?? 'No title available',
-      content: item.content ?? '',
-      authour: item.creator ?? 'Unknown',
-      categories: item.categories?.join(' ') ?? 'No category',
-      link: item.link ?? '',
-      imageUrl: item.enclosure?.url ?? ''
-    })
-  }, [])
-
-  useEffect(() => {
     setMarkdown(
-      getMarkdown(state.title, state.content, state.link, state.imageUrl)
+      getMarkdown(
+        publication.title,
+        publication.content,
+        publication.link,
+        publication.imageUrl
+      )
     )
-  }, [state.title, state.content, state.link, state.imageUrl])
+  }, [publication])
 
   return (
     <Detail
       markdown={markdown}
-      actions={<Actions link={state.link} />}
+      actions={<Actions link={publication.link} />}
       metadata={
         <Detail.Metadata>
           <Detail.Metadata.TagList title="Category">
             <Detail.Metadata.TagList.Item
-              text={state.categories}
+              text={publication.categories}
               color={Color.Blue}
             />
           </Detail.Metadata.TagList>
           <Detail.Metadata.Separator />
           <Detail.Metadata.Link
-            target={state.link}
+            target={publication.link}
             title="Full article"
             text="Read full article"
           />
