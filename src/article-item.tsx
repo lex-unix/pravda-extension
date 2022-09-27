@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Action, ActionPanel, Detail, Color } from '@raycast/api'
 import Parser from 'rss-parser'
 
@@ -21,18 +21,12 @@ export const ArticleItem: React.FC<{ item: Parser.Item }> = ({ item }) => {
     imageUrl: item.enclosure?.url ?? ''
   })
 
-  const [markdown, setMarkdown] = useState('')
-
-  useEffect(() => {
-    setMarkdown(
-      getMarkdown(
-        publication.title,
-        publication.content,
-        publication.link,
-        publication.imageUrl
-      )
-    )
-  }, [publication])
+  const markdown = getMarkdown(
+    publication.title,
+    publication.content,
+    publication.link,
+    publication.imageUrl
+  )
 
   return (
     <Detail
