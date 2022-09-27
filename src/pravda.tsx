@@ -6,7 +6,7 @@ import { ArticleListItem } from './article-list-item'
 
 enum Topic {
   AllNews = 'view_news',
-  MainViews = 'view_mainnews',
+  MainNews = 'view_mainnews',
   Publications = 'view_pubs'
 }
 
